@@ -1,56 +1,164 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  </style>
+  <style>
+    body.slide-in-left {
+      transform: translateX(-60px);
+      opacity: 0;
+      transition: transform 0.7s cubic-bezier(.4,0,.2,1), opacity 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    body.slide-in-left.in {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  </style>
+
   <meta charset="UTF-8">
   <title>À propos - Association de Football</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+  <script>
+    // Animation d'apparition slide-in gauche
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.classList.add('slide-in-left');
+      setTimeout(function(){
+        document.body.classList.add('in');
+      }, 10);
+    });
+    // Animation de transition lors des changements de page
+    document.querySelectorAll('a').forEach(function(link) {
+      if(link.target==='_blank' || link.href.startsWith('javascript:')) return;
+      link.addEventListener('click', function(e) {
+        if(link.hostname === window.location.hostname && link.pathname !== window.location.pathname) {
+          e.preventDefault();
+          document.body.classList.remove('in');
+          setTimeout(function(){
+            window.location = link.href;
+          }, 400);
+        }
+      });
+    });
+  </script>
   <header>
-<a href="index2.html">
-    <img src="img\b.png" alt="Logo du site" class="logo">
-  </a>
-  <div>
-    <h1>Association de Football</h1>
-    <p>"Le football, plus qu'un jeu, une famille."</p>
-  </div>
-</header>
+    <a href="index2.html">
+      <img src="img/b.png" alt="Logo du site" class="logo">
+    </a>
+    <div class="header-text">
+      <h1>Association de Football</h1>
+      <p>"Le football, plus qu'un jeu, une famille."</p>
+    </div>
+  </header>
 
 
-  <nav>
-    <ul>
-      <li><a href="index2.html">Accueil</a></li>
-      <li><a href="events.html">Événements</a></li>
-      <li><a href="about.html" class="active">À propos</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="temoignages.php">Témoignages</a></li>
+  <nav class="main-nav">
+    <button class="menu-toggle" aria-label="Ouvrir le menu" onclick="document.querySelector('.main-nav ul').classList.toggle('show')">
+      <span class="sr-only">Ouvrir le menu</span>
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-links nav-centered">
+      <li><a href="index2.html"><i class="fas fa-home" title="Accueil"></i> Accueil</a></li>
+      <li><a href="events.html"><i class="fas fa-calendar-alt" title="Événements"></i> Événements</a></li>
+      <li><a href="about.html" class="active"><i class="fas fa-users" title="À propos"></i> À propos</a></li>
+      <li><a href="contact.html"><i class="fas fa-envelope" title="Contact"></i> Contact</a></li>
+      <li><a href="temoignages.php"><i class="fas fa-star" title="Témoignages"></i> Témoignages</a></li>
     </ul>
   </nav>
 
+
+  <!-- Motif watermark ballon premium : SVG décoratif global -->
+  <svg class="hero-watermark" style="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:0;opacity:0.10;pointer-events:none;" width="820" height="820" viewBox="0 0 820 820" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="circleSplit" x1="0" y1="0" x2="820" y2="0" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#111"/>
+        <stop offset="50%" stop-color="#111"/>
+        <stop offset="50.1%" stop-color="#0056b3"/>
+        <stop offset="100%" stop-color="#0056b3"/>
+      </linearGradient>
+    </defs>
+    <circle cx="410" cy="410" r="340" stroke="url(#circleSplit)" stroke-width="14" fill="#fffbe6" fill-opacity="0.10"/>
+    <polygon points="410,250 500,310 500,420 410,480 320,420 320,310" fill="#FFD700" fill-opacity="0.18" stroke="#fff" stroke-width="7"/>
+    <polygon points="500,310 590,250 590,360 500,420 500,310" fill="#FFD700" fill-opacity="0.10" stroke="#0056b3" stroke-width="5"/>
+    <polygon points="320,310 230,250 230,360 320,420 320,310" fill="#FFD700" fill-opacity="0.10" stroke="#111" stroke-width="5"/>
+    <polygon points="500,420 590,360 590,470 500,530 500,420" fill="#FFD700" fill-opacity="0.08" stroke="#0056b3" stroke-width="5"/>
+    <polygon points="320,420 230,360 230,470 320,530 320,420" fill="#FFD700" fill-opacity="0.08" stroke="#111" stroke-width="5"/>
+    <polygon points="410,480 500,530 500,640 410,700 320,640 320,530" fill="#FFD700" fill-opacity="0.07" stroke="#111" stroke-width="5"/>
+    <path d="M270 320 Q410 180 550 320" stroke="#fff" stroke-width="18" stroke-linecap="round" opacity="0.18"/>
+    <path d="M320 640 Q410 760 500 640" stroke="#fff" stroke-width="14" stroke-linecap="round" opacity="0.10"/>
+    <circle cx="410" cy="410" r="340" stroke="url(#circleSplit)" stroke-width="4" fill="none"/>
+    <circle cx="410" cy="410" r="400" stroke="#0056b3" stroke-width="2" fill="none"/>
+  </svg>
   <main>
-    <section>
-      <h2>Notre mission</h2>
-      <p>Promouvoir le football et organiser des activités sportives pour tous.</p>
+    <section class="hero-banner">
+      <h2><i class="fas fa-users"></i> À propos de notre association</h2>
+      <p>Un lieu où la passion, la fraternité et l’excellence sportive se rencontrent.</p>
+      <a href="contact.html" class="btn"><i class="fas fa-envelope"></i> Contactez-nous</a>
     </section>
 
-    <section>
-      <h2>Nos valeurs</h2>
-      <ul>
-        <li>Passion</li>
-        <li>Respect</li>
-        <li>Solidarité</li>
-        <li>Esprit d’équipe</li>
+    <section id="about-mission" class="about-card">
+      <h2><i class="fas fa-bullseye"></i> Notre mission</h2>
+      <p>Promouvoir le football pour tous, organiser des activités sportives inclusives et transmettre des valeurs fortes à travers le sport.</p>
+    </section>
+
+    <section id="about-values" class="about-card">
+      <h2><i class="fas fa-gem"></i> Nos valeurs</h2>
+      <ul class="about-values-list">
+        <li><i class="fas fa-fire"></i> Passion</li>
+        <li><i class="fas fa-handshake"></i> Respect</li>
+        <li><i class="fas fa-hands-helping"></i> Solidarité</li>
+        <li><i class="fas fa-people-group"></i> Esprit d’équipe</li>
       </ul>
     </section>
 
-    <section>
-      <h2>Notre histoire</h2>
-      <p>Fondée en 2025, notre association est devenue un acteur majeur du sport amateur dans la région.</p>
+    <section id="about-history" class="about-card">
+      <h2><i class="fas fa-history"></i> Notre histoire</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <span class="timeline-date">2025</span>
+          <div class="timeline-content">Création de l’association par un groupe de passionnés.</div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-date">2026</span>
+          <div class="timeline-content">Premier tournoi régional organisé avec succès.</div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-date">2027</span>
+          <div class="timeline-content">Ouverture de nouvelles sections jeunes et féminines.</div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-date">2028</span>
+          <div class="timeline-content">Reconnaissance par la fédération locale et croissance continue.</div>
+        </div>
+      </div>
     </section>
 
-    <section>
-      <h2>Nos équipes</h2>
-      <p>Des U7 aux vétérans, chacun trouve sa place chez nous.</p>
+    <section id="about-teams" class="about-card">
+      <h2><i class="fas fa-people-group"></i> Nos équipes & encadrement</h2>
+      <div class="team-list">
+        <div class="team-member">
+          <div class="team-icon"><i class="fas fa-user-tie"></i></div>
+          <h3>Ali Benali</h3>
+          <p class="role">Président</p>
+        </div>
+        <div class="team-member">
+          <div class="team-icon"><i class="fas fa-whistle"></i></div>
+          <h3>Sarah Benali</h3>
+          <p class="role">Coach principal</p>
+        </div>
+        <div class="team-member">
+          <div class="team-icon"><i class="fas fa-child"></i></div>
+          <h3>Jean Dupont</h3>
+          <p class="role">Responsable Jeunes</p>
+        </div>
+        <div class="team-member">
+          <div class="team-icon"><i class="fas fa-coins"></i></div>
+          <h3>Fatima Lemoine</h3>
+          <p class="role">Trésorière</p>
+        </div>
+      </div>
+      <p class="about-team-note">Des U7 aux vétérans, chacun trouve sa place chez nous !</p>
     </section>
   </main>
 
@@ -58,4 +166,21 @@
     <p>&copy; 2025 Association de Football - Tous droits réservés</p>
   </footer>
 </body>
+<script>
+// Ferme le menu si on clique ailleurs sur mobile
+document.addEventListener('click', function(e) {
+  const nav = document.querySelector('nav');
+  const menu = nav.querySelector('ul');
+  const btn = nav.querySelector('.menu-toggle');
+  if (window.innerWidth <= 768 && menu.classList.contains('show')) {
+    if (!nav.contains(e.target)) {
+      menu.classList.remove('show');
+    }
+    // Si on clique sur un lien du menu, on ferme aussi
+    if (e.target.tagName === 'A' && menu.contains(e.target)) {
+      menu.classList.remove('show');
+    }
+  }
+});
+</script>
 </html>

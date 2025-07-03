@@ -1,67 +1,179 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  <link rel="stylesheet" href="style.css">
   <meta charset="UTF-8">
   <title>Accueil - Association de Football</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-<header>
-  <img src="img/b.png" alt="Logo du site" class="logo">
-  <div class="header-text">
-    <h1>Association de Football</h1>
-    <p>"Le football, plus qu'un jeu, une famille."</p>
-  </div>
-</header>
 
+  <script>
+    // Animation d'apparition fade-up
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.classList.add('fade-up');
+      setTimeout(function(){
+        document.body.classList.add('in');
+      }, 10);
+    });
+    // Animation de transition lors des changements de page
+    document.querySelectorAll('a').forEach(function(link) {
+      if(link.target==='_blank' || link.href.startsWith('javascript:')) return;
+      link.addEventListener('click', function(e) {
+        if(link.hostname === window.location.hostname && link.pathname !== window.location.pathname) {
+          e.preventDefault();
+          document.body.classList.remove('in');
+          setTimeout(function(){
+            window.location = link.href;
+          }, 400);
+        }
+      });
+    });
+  </script>
+  <header>
+    <a href="index2.html">
+      <img src="img/b.png" alt="Logo du site" class="logo">
+    </a>
+    <div class="header-text">
+      <h1>Association de Football</h1>
+      <p>"Le football, plus qu'un jeu, une famille."</p>
+    </div>
+  </header>
 
-
-
-  <nav>
-    <ul>
-      <li><a href="index2.html" class="active">Accueil</a></li>
-      <li><a href="events.html">Événements</a></li>
-      <li><a href="about.html">À propos</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="temoignages.php">Témoignages</a></li>
+  <nav class="main-nav">
+    <button class="menu-toggle" aria-label="Ouvrir le menu" onclick="document.querySelector('.main-nav ul').classList.toggle('show')">
+      <span class="sr-only">Ouvrir le menu</span>
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-links" style="display: flex; justify-content: center; align-items: center; gap: 18px; padding: 0; margin: 0 auto; list-style: none; max-width: 700px; width: 100%;">
+      <li><a href="index2.html" class="active"><i class="fas fa-home" title="Accueil"></i> Accueil</a></li>
+      <li><a href="events.html"><i class="fas fa-calendar-alt" title="Événements"></i> Événements</a></li>
+      <li><a href="about.html"><i class="fas fa-users" title="À propos"></i> À propos</a></li>
+      <li><a href="contact.html"><i class="fas fa-envelope" title="Contact"></i> Contact</a></li>
+      <li><a href="temoignages.php"><i class="fas fa-star" title="Témoignages"></i> Témoignages</a></li>
     </ul>
   </nav>
 
   <main>
+  <!-- Motif watermark ballon premium : gauche noir, droite bleu, centre doré -->
+  <svg class="hero-watermark" style="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:0;opacity:0.10;pointer-events:none;" width="820" height="820" viewBox="0 0 820 820" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Cercle principal : gauche noir, droite bleu -->
+    <defs>
+      <linearGradient id="circleSplit" x1="0" y1="0" x2="820" y2="0" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#111"/>
+        <stop offset="50%" stop-color="#111"/>
+        <stop offset="50.1%" stop-color="#0056b3"/>
+        <stop offset="100%" stop-color="#0056b3"/>
+      </linearGradient>
+    </defs>
+    <circle cx="410" cy="410" r="340" stroke="url(#circleSplit)" stroke-width="14" fill="#fffbe6" fill-opacity="0.10"/>
+    <!-- Hexagone central (doré, contour blanc) -->
+    <polygon points="410,250 500,310 500,420 410,480 320,420 320,310" fill="#FFD700" fill-opacity="0.18" stroke="#fff" stroke-width="7"/>
+    <!-- Hexagones satellites : gauche noir, droite bleu -->
+    <polygon points="500,310 590,250 590,360 500,420 500,310" fill="#FFD700" fill-opacity="0.10" stroke="#0056b3" stroke-width="5"/>
+    <polygon points="320,310 230,250 230,360 320,420 320,310" fill="#FFD700" fill-opacity="0.10" stroke="#111" stroke-width="5"/>
+    <polygon points="500,420 590,360 590,470 500,530 500,420" fill="#FFD700" fill-opacity="0.08" stroke="#0056b3" stroke-width="5"/>
+    <polygon points="320,420 230,360 230,470 320,530 320,420" fill="#FFD700" fill-opacity="0.08" stroke="#111" stroke-width="5"/>
+    <polygon points="410,480 500,530 500,640 410,700 320,640 320,530" fill="#FFD700" fill-opacity="0.07" stroke="#111" stroke-width="5"/>
+    <!-- Effet brillance (arc blanc) -->
+    <path d="M270 320 Q410 180 550 320" stroke="#fff" stroke-width="18" stroke-linecap="round" opacity="0.18"/>
+    <path d="M320 640 Q410 760 500 640" stroke="#fff" stroke-width="14" stroke-linecap="round" opacity="0.10"/>
+    <!-- Cercles décoratifs : gauche noir, droite bleu -->
+    <circle cx="410" cy="410" r="340" stroke="url(#circleSplit)" stroke-width="4" fill="none"/>
+    <circle cx="410" cy="410" r="400" stroke="#0056b3" stroke-width="2" fill="none"/>
+  </svg>
+
+
+
     <section class="hero-banner">
-      <h2>Bienvenue sur notre terrain</h2>
-      <p>Un lieu où la passion et la fraternité se rencontrent.</p>
-      <a href="about.html" class="btn">En savoir plus</a>
+      <!-- Décorations SVG premium autour du hero-banner -->
+      <svg class="hero-decor top-left" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="110" cy="110" r="100" fill="#FFD700" fill-opacity="0.18"/>
+        <ellipse cx="60" cy="60" rx="40" ry="18" fill="#0056b3" fill-opacity="0.13"/>
+      </svg>
+      <h2 style="font-size:3.5em;line-height:1.1;"><i class="fas fa-futbol"></i> Bienvenue sur notre terrain</h2>
+      <p class="hero-desc">Un lieu où la <span class="gold">passion</span>, la <span class="blue">fraternité</span> et l’excellence sportive se rencontrent.<br>Rejoignez une aventure humaine et sportive unique à Lyon !</p>
+      <a href="about.html" class="btn"><i class="fas fa-users"></i> En savoir plus</a>
+      <svg class="hero-decor bottom-right" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="130" cy="130" r="110" fill="#0056b3" fill-opacity="0.13"/>
+        <ellipse cx="200" cy="200" rx="50" ry="22" fill="#FFD700" fill-opacity="0.13"/>
+      </svg>
     </section>
 
-    <section id="news">
-      <h2>Actualités</h2>
-      <article>
-        <h3>🏆 Finale régionale remportée !</h3>
-        <p>Nos U17 ont brillamment remporté la finale avec un score de 3-1 !</p>
-      </article>
-      <article>
-        <h3>⚽ Nouveaux créneaux d'entraînement</h3>
-        <p>Découvrez les horaires mis à jour pour la saison 2025-2026.</p>
-      </article>
+    <!-- Section vidéo d'accueil premium EN BAS du bloc bienvenue -->
+    <section class="home-card" id="video-welcome" style="background:linear-gradient(120deg,#eaf2fb 70%,#fffbe6 100%);max-width:520px;margin:32px auto 0 auto;">
+      <div style="text-align:left;">
+        <h3 style="color:#0056b3;margin-bottom:10px;"><i class="fas fa-play-circle"></i> Vidéo inspiration : Cristiano Ronaldo</h3>
+        <div style="margin:18px 0;">
+        <video controls poster="img/five3.png" style="max-width:600px;width:100%;border-radius:18px;box-shadow:0 4px 24px #0056b322,0 2px 16px #FFD70022;">
+          <source src="img/Cristiano Ronaldo 2008 ► Ballon d'Or Level Skills 👑 - YouTube et 59 pages de plus - Personnel – Microsoft​ Edge 2025-07-03 02-29-59.mp4" type="video/mp4">
+          Votre navigateur ne supporte pas la vidéo HTML5.
+        </video>
+        </div>
+        <p style="color:#888;font-size:1em;margin-top:10px;">Cristiano Ronaldo, une source d’inspiration pour tous les passionnés de football !</p>
+      </div>
     </section>
 
-    <section id="testimonials">
-      <h2>Témoignages</h2>
-      <blockquote>
-        "Une vraie ambiance familiale. Mon fils adore venir s'entraîner ici !" — <cite>Laura, maman d’un joueur</cite>
-      </blockquote>
     </section>
 
-    <section id="join-us">
-      <h2>Rejoignez-nous !</h2>
-      <p>Nous accueillons joueurs, bénévoles, entraîneurs et supporters.</p>
-      <a href="contact.html" class="btn">Contactez-nous</a>
+    <section id="news" class="home-card">
+      <h2><i class="fas fa-bullhorn"></i> Actualités</h2>
+      <div class="news-list">
+        <article class="news-item">
+          <h3><i class="fas fa-trophy"></i> Finale régionale remportée !</h3>
+          <p>Nos U17 ont brillamment remporté la finale avec un score de 3-1 !</p>
+        </article>
+        <article class="news-item">
+          <h3><i class="fas fa-calendar-check"></i> Nouveaux créneaux d'entraînement</h3>
+          <p>Découvrez les horaires mis à jour pour la saison 2025-2026.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="testimonials" class="home-card">
+      <h2><i class="fas fa-star"></i> Témoignage vedette</h2>
+      <div style="text-align:center;font-size:1.08em;color:#0056b3;margin-bottom:10px;">Découvrez l’avis d’un membre&nbsp;!</div>
+      <?php include 'random_temoignage.php'; ?>
+    </section>
+
+    <section id="join-us" class="home-card">
+      <h2><i class="fas fa-people-group"></i> Rejoignez-nous !</h2>
+      <p style="font-size:1.13em;max-width:520px;margin:0 auto 18px auto;">Nous accueillons <b>joueurs</b>, <b>bénévoles</b>, <b>entraîneurs</b> et <b>supporters</b> dans une ambiance conviviale et ambitieuse.<br>Envie de tenter l’aventure&nbsp;? Contactez-nous&nbsp;!</p>
+      <div style="text-align:left;">
+        <a href="contact.html" class="btn" style="font-size:1.1em;padding:14px 36px;display:inline-block;"> <i class="fas fa-envelope"></i> Contactez-nous</a>
+      </div>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 Association de Football - Tous droits réservés</p>
+    <div class="footer-content" style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+      <div class="footer-social" style="margin-bottom:4px;">
+        <a href="#" title="Facebook" style="margin:0 8px;color:#0056b3;font-size:1.5em;transition:color 0.2s;"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" title="Instagram" style="margin:0 8px;color:#b3005c;font-size:1.5em;transition:color 0.2s;"><i class="fab fa-instagram"></i></a>
+        <a href="#" title="Twitter" style="margin:0 8px;color:#1da1f2;font-size:1.5em;transition:color 0.2s;"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" title="YouTube" style="margin:0 8px;color:#ff0000;font-size:1.5em;transition:color 0.2s;"><i class="fab fa-youtube"></i></a>
+      </div>
+      <p style="color:#888;font-size:1em;">Retrouvez-nous sur les réseaux sociaux&nbsp;!</p>
+      <p style="margin:0;font-size:1em;">&copy; 2025 Association de Football - Tous droits réservés</p>
+    </div>
   </footer>
 </body>
+<script>
+// Ferme le menu si on clique ailleurs sur mobile
+document.addEventListener('click', function(e) {
+  const nav = document.querySelector('nav');
+  const menu = nav.querySelector('ul');
+  const btn = nav.querySelector('.menu-toggle');
+  if (window.innerWidth <= 768 && menu.classList.contains('show')) {
+    if (!nav.contains(e.target)) {
+      menu.classList.remove('show');
+    }
+    // Si on clique sur un lien du menu, on ferme aussi
+    if (e.target.tagName === 'A' && menu.contains(e.target)) {
+      menu.classList.remove('show');
+    }
+  }
+});
+</script>
 </html>

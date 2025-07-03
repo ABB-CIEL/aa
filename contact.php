@@ -1,80 +1,49 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contactez-nous - Association de Football</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-</head>
-<body>
-  <header>
-    <a href="index2.html">
-      <img src="abs.png" alt="Logo du site" class="logo">
-    </a>
-    <h1>Contactez-nous</h1>
-    <p>"Le football, plus qu'un jeu, une famille."</p>
-  </header>
+<?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use Dotenv\Dotenv;
 
-  <!-- Menu de navigation global -->
-  <nav>
-    <ul>
-      <li><a href="index2.html">Accueil</a></li>
-      <li><a href="events.html">Événements</a></li>
-      <li><a href="about.html">À propos</a></li>
-      <li><a href="contact.php" class="active">Contact</a></li>
-      <li><a href="temoignages.php">Témoignages</a></li>
-    </ul>
-  </nav>
+require 'vendor/autoload.php';
 
-  <main class="contact-container">
-    <!-- Formulaire de contact -->
-    <section class="contact-form-section">
-      <h2>Envoyez-nous un message</h2>
-      <form action="submit_form.php" method="post" class="contact-form">
-        <label for="nom">Nom :</label>
-        <input type="text" id="nom" name="nom" placeholder="Votre nom complet" required>
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
-        <label for="email">Email :</label>
-        <input type="email" id="email" name="email" placeholder="Votre adresse email" required>
+$mail = new PHPMailer(true);
 
-        <label for="message">Message :</label>
-        <textarea id="message" name="message" placeholder="Votre message ici..." required></textarea>
+try {
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = $_ENV['SMTP_EMAIL'];
+    $mail->Password = $_ENV['SMTP_PASSWORD'];
+    $mail->SMTPSecure = 'tls';
+    $mail->Port = 587;
 
-        <button type="submit" class="btn">Envoyer</button>
-      </form>
-    </section>
+  
+    $nom = htmlspecialchars($_POST['nom'] ?? '');
+    $email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
+    $message = htmlspecialchars($_POST['message'] ?? '');
 
-    <!-- Infos de contact -->
-    <section class="contact-info">
-      <h2>Nos coordonnées</h2>
-      <p><i class="fas fa-map-marker-alt"></i> 123 Rue du foot, 69000 Lyon, France</p>
-      <p><i class="fas fa-phone"></i> 06 00 00 00 00</p>
-      <p><i class="fas fa-envelope"></i> contact@associationfoot.fr</p>
-      <p>
-        <a href="https://wa.me/33600000000" target="_blank" class="whatsapp-link">
-          <i class="fab fa-whatsapp"></i> Contact WhatsApp
-        </a>
-      </p>
-    </section>
+    if (empty($nom) || empty($email) || empty($message)) {
+        header('Location: contact.html?error=1&msg=Veuillez+remplir+tous+les+champs.');
+        exit;
+    }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        header('Location: contact.html?error=1&msg=Adresse+email+invalide.');
+        exit;
+    }
 
-    <!-- Google Maps -->
-    <section class="map-container">
-      <h2>Où nous trouver</h2>
-      <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2781.8043403290333!2d4.835659!3d45.764043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4ea6221e6c7c9%3A0x2b20b77d8727473a!2sLyon!5e0!3m2!1sfr!2sfr!4v1717315824444!5m2!1sfr!2sfr" 
-        width="90%" 
-        height="400" 
-        style="border:0;" 
-        allowfullscreen 
-        loading="lazy" 
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
-    </section>
-  </main>
+    $mail->setFrom($email, $nom);
+    $mail->addAddress('habbey480@gmail.com', 'Association de Football');
 
-  <footer>
-    <p>&copy; 2025 Association de Football - Tous droits réservés</p>
-  </footer>
-</body>
-</html>
+    $mail->isHTML(true);
+    $mail->Subject = 'Message de contact depuis le site Association de Football';
+    $mail->Body = "<h2>Nouveau message de contact</h2><p><strong>Nom :</strong> {$nom}</p><p><strong>Email :</strong> {$email}</p><p><strong>Message :</strong><br>" . nl2br($message) . "</p>";
+
+    $mail->send();
+    header('Location: contact.html?success=1');
+    exit;
+} catch (Exception $e) {
+    header('Location: contact.html?error=1&msg=' . urlencode($mail->ErrorInfo));
+    exit;
+}
