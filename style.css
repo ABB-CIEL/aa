@@ -113,14 +113,7 @@ body {
   display: inline-block;
   text-align: left;
 }
-.event-title-row,
-.event-title-row h2,
-.event-badge,
-.event-badge-gold,
-.event-badge-blue,
-.event-badge-green {
-  /* supprimé : plus utilisé, nettoyage */
-}
+
 /* =============== EVENTS PAGE =============== */
 .events-section {
   max-width: 1200px;
