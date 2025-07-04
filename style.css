@@ -1,3 +1,74 @@
+/* ===== MENU MOBILE PREMIUM, STRUCTURÉ ET HARMONISÉ ===== */
+@media (max-width: 768px) {
+  .main-nav .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 64px;
+    right: 12px;
+    width: 320px;
+    min-width: 220px;
+    max-width: 95vw;
+    background: #0056b3;
+    box-shadow: 0 8px 32px #0056b344, 0 0 0 4px #FFD70022;
+    border-radius: 16px;
+    z-index: 1001;
+    padding: 18px 0 12px 0;
+    margin: 0;
+    gap: 0;
+    align-items: flex-start;
+    opacity: 1;
+    pointer-events: auto;
+    border: 2px solid #FFD700;
+  }
+  .main-nav .nav-links.show {
+    display: flex;
+  }
+  .main-nav .nav-links li {
+    width: 100%;
+    text-align: left;
+    margin: 0;
+    padding: 0 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.13);
+    list-style: none;
+  }
+  .main-nav .nav-links li:last-child {
+    border-bottom: none;
+  }
+  .main-nav .nav-links li a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 14px 0 14px 0;
+    font-size: 1.15em;
+    color: #fff;
+    border-radius: 8px;
+    transition: background 0.18s, color 0.18s;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    outline: none;
+    box-shadow: none;
+  }
+  .main-nav .nav-links li a.active,
+  .main-nav .nav-links li a:focus {
+    background: #003366;
+    color: #fff;
+    box-shadow: 0 2px 8px #FFD70033;
+  }
+  .main-nav .nav-links li a:hover {
+    background: #0056b3;
+    color: #FFD700;
+    box-shadow: 0 2px 8px #FFD70033;
+  }
+  .main-nav .nav-links i {
+    min-width: 26px;
+    text-align: center;
+    font-size: 1.18em;
+    color: #FFD700;
+  }
+}
 /* ========== TITRE HERO (accueil) PLUS GRAND ========== */
 .hero-banner h2 {
   font-size: 2.9em !important;
@@ -962,7 +1033,6 @@ section {
   transform: scale(1.06) rotate(-2deg);
   box-shadow: 0 8px 24px #FFD70033, 0 0 0 4px #FFD70022;
   z-index: 1;
-/* Correction de la fermeture de bloc superflue */
 }
 
 /* ========== Carte Google Maps ========== */
@@ -1070,7 +1140,6 @@ footer {
 /* --- Hamburger Button: juste sous le titre, à droite, compact --- */
 /* --- Hamburger Button: encore plus haut sous le titre, à droite --- */
 /* --- Hamburger Button: tout en haut sous le header, à droite --- */
-/* --- Hamburger Button: collé en haut à droite du header --- */
 .menu-toggle {
   display: none;
   background: #0056b3;
@@ -1082,8 +1151,8 @@ footer {
   box-shadow: 0 2px 14px #0056b344;
   padding: 8px 18px;
   position: absolute;
-  top: 0px; /* Collé tout en haut */
-  right: 8px;
+  top: 8px; /* Tout en haut sous le header */
+  right: 20px;
   margin-top: 0;
   z-index: 2000;
   width: 62px;
@@ -1103,8 +1172,8 @@ footer {
   .menu-toggle {
     display: block;
     position: absolute;
-    top: 0px; /* Collé tout en haut */
-    right: 8px;
+    top: 8px; /* Tout en haut sous le header */
+    right: 20px;
     margin-top: 0;
     width: 62px;
     height: 52px;
