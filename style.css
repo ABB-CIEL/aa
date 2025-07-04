@@ -1,4 +1,4 @@
-/* ===== MENU MOBILE PREMIUM, STRUCTURÉ ET HARMONISÉ ===== */
+/* ===== MENU MOBILE PREMIUM, STRUCTURÉ ET HARMONISÉ (UNE SEULE VERSION) ===== */
 @media (max-width: 768px) {
   .main-nav .nav-links {
     display: none;
@@ -66,7 +66,8 @@
     min-width: 26px;
     text-align: center;
     font-size: 1.18em;
-    color: #FFD700;
+    color: #FFD700 !important;
+    /* Forcer la couleur dorée des icônes dans le menu mobile */
   }
 }
 /* ========== TITRE HERO (accueil) PLUS GRAND ========== */
